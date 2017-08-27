@@ -1,0 +1,12 @@
+version: '3'
+services:
+  build:
+    image: gradle
+    volumes:
+      - ./webapp:/project
+  appserver:
+    build: wildfly/.
+    image: sightseeker/wildfly-deployment-demo
+    ports:
+      - 8080:8080
+      - 9990:9990
