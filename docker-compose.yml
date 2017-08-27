@@ -3,7 +3,11 @@ services:
   build:
     image: gradle
     volumes:
-      - ./webapp:/project
+      - "./webapp:/project"
+    working_dir: /project
+    command: ["gradle", "-t", "build", "cargoRedeployRemote"]
+    depends_on:
+      - appserver
   appserver:
     build: wildfly/.
     image: sightseeker/wildfly-deployment-demo
