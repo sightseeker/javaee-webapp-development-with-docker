@@ -1,0 +1,8 @@
+embed-server --server-config=standalone-full.xml
+batch
+module add --name=com.mysql --resources=/tmp/mysql-connector-java-5.1.34.jar --dependencies=javax.api,javax.transaction.api
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql, driver-module-name=com.mysql, driver-class-name=com.mysql.jdbc.Driver)
+data-source add --name=demo-ds --jndi-name=java:jboss/datasources/mysql/demo --driver-name=mysql --connection-url=jdbc:mysql://mysqlserver:3306/demo\
+--enabled=true --password=demo --user-name=demo
+run-batch
+stop-embedded-server
