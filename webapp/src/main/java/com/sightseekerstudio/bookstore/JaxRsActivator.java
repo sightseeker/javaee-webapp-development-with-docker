@@ -1,4 +1,4 @@
-package com.sightseekerstudio.javaee.webapp.dev.demo;
+package com.sightseekerstudio.bookstore;
 
 import javax.ws.rs.core.Application;
 
