@@ -1,5 +1,6 @@
 package com.sightseekerstudio.bookstore;
 
+import java.util.List;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -20,4 +21,7 @@ public class BookService {
         em.persist(book);
     }
 
+    public List<Book> getBooks() {
+        return em.createQuery("SELECT e FROM Book e", Book.class).getResultList();
+    }
 }

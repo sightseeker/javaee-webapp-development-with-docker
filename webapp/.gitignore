@@ -2,3 +2,4 @@
 .project
 .nb-gradle
 .classpath
+bin
