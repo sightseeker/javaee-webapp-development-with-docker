@@ -10,5 +10,6 @@ RUN chown jboss:jboss /tmp/setup-wildfly.cli /tmp/mysql-connector-java-5.1.34.ja
 USER jboss
 RUN /opt/jboss/wildfly/bin/add-user.sh admin password --silent
 RUN ${JBOSS_HOME}/bin/jboss-cli.sh --file=/tmp/setup-wildfly.cli
+RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
 
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0", "-c", "standalone-full.xml"]
