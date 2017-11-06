@@ -8,41 +8,42 @@ def javaVersion = 1.8
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
-
 buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.bmuschko:gradle-cargo-plugin:2.2.3'
-  }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.3'
+    }
 }
 
 apply plugin: 'com.bmuschko.cargo'
+apply plugin: 'eclipse'
 
 cargo {
-  containerId = 'wildfly10x'
-  port = 8080
-  remote {
-    hostname = 'appserver'
-    username = 'admin'
-    password = 'password'
-  }
+    containerId = 'wildfly10x'
+    port = 8080
+    remote {
+        hostname = 'appserver'
+        username = 'admin'
+        password = 'password'
+    }
 }
 
 war {
-  archiveName = 'webapp.war'
+    archiveName = 'webapp.war'
 }
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  providedCompile 'javax:javaee-api:7.0'
+    providedCompile 'javax:javaee-api:7.0'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
 
-  def cargoVersion = '1.5.0'
-  cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+    def cargoVersion = '1.5.0'
+    cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
         "org.codehaus.cargo:cargo-ant:$cargoVersion"
-  cargo "org.wildfly:wildfly-controller-client:8.2.0.Final"
+    cargo "org.wildfly:wildfly-controller-client:8.2.0.Final"
 }
