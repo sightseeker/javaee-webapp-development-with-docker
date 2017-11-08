@@ -5,15 +5,15 @@ services:
     volumes:
       - "./webapp:/project"
     working_dir: /project
-    command: ["gradle", "-t", "build", "cargoRedeployRemote"]
+    command: ["gradle", "-t", "build", "deployToAllRemote"]
     depends_on:
       - appserver
-  appserver:
+  appserver1: &appserver
     build: wildfly/.
     image: sightseeker/wildfly-deployment-demo
-    ports:
-      - 8080:8080
-      - 9990:9990
+    environment:
+      NODE_ID: '{{.Service.Name}}'
+  appserver2: *appserver
   mysqlserver:
     image: mysql:5.6
     container_name: mysqlserver

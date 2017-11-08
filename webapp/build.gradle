@@ -20,14 +20,37 @@ buildscript {
 apply plugin: 'com.bmuschko.cargo'
 apply plugin: 'eclipse'
 
+
+class RemoteContainer {
+    String name
+    String hostname
+    String containerId
+}
+
+def remoteContainers = [
+    new RemoteContainer(name:'wildfly1', hostname:'appserver1'),
+    new RemoteContainer(name:'wildfly2', hostname:'appserver2')
+]
+
+import com.bmuschko.gradle.cargo.tasks.remote.CargoRedeployRemote
+
+remoteContainers.each { config ->
+    task "deployRemote${config.name.capitalize()}"(type: CargoRedeployRemote) {
+        // description = "Deploys WAR to remote WildFly '${config.name}'."
+        hostname = config.hostname
+        username = "admin"
+        password = "password"
+    }
+}
+
+task deployToAllRemote {
+    dependsOn remoteContainers.collect { "deployRemote${it.name.capitalize()}" }
+    description = 'Deploys to all remote WildFly containers.'
+    group = 'deployment'
+}
 cargo {
     containerId = 'wildfly10x'
     port = 8080
-    remote {
-        hostname = 'appserver'
-        username = 'admin'
-        password = 'password'
-    }
 }
 
 war {
