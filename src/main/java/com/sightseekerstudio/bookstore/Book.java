@@ -15,11 +15,16 @@ import lombok.Data;
 @Entity
 @Table(name = "book")
 public class Book implements Serializable {
-
+    
     @Id
     @GeneratedValue
     private Integer id;
 
     private String name;
     private Integer price;
+
+    public Book(String name, Integer price) {
+        this.name = name;
+        this.price = price;
+    }
 }

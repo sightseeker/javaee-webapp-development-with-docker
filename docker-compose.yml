@@ -1,19 +1,22 @@
 version: '3'
 services:
   build:
-    image: gradle
+    image: gradle:jdk8
     volumes:
       - "./webapp:/project"
     working_dir: /project
     command: ["gradle", "-t", "build", "cargoRedeployRemote"]
     depends_on:
       - appserver
+    networks:
+      - javaeedev
   appserver:
-    build: wildfly/.
-    image: sightseeker/wildfly-deployment-demo
+    image: sightseeker/wildfly-deployment-demo:10.0.0.Final
     ports:
       - 8080:8080
       - 9990:9990
+    networks:
+      - javaeedev
   mysqlserver:
     image: mysql:5.6
     container_name: mysqlserver
@@ -21,8 +24,12 @@ services:
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     ports:
       - "3306:3306"
+    networks:
+      - javaeedev
     environment:
       MYSQL_USER: demo
       MYSQL_PASSWORD: demo
       MYSQL_DATABASE: demo
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+networks:
+  javaeedev:
