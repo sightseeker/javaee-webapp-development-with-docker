@@ -1,5 +1,6 @@
 package com.sightseekerstudio.bookstore;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.enterprise.inject.Model;
 import lombok.Getter;
@@ -18,6 +19,11 @@ public class BookRegisterViewModel {
     @Getter
     @Setter
     private Book book;
+
+    @PostConstruct
+    private void setupViewModel() {
+        book = new Book();
+    }
 
     public String registerButtonPressed() {
         service.register(book);

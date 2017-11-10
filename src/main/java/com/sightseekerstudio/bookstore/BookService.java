@@ -1,10 +1,10 @@
 package com.sightseekerstudio.bookstore;
 
 import java.util.List;
-import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -16,7 +16,7 @@ public class BookService {
     @PersistenceContext
     private EntityManager em;
 
-    @TransactionAttribute
+    @Transactional
     public void register(Book book) {
         em.persist(book);
     }
