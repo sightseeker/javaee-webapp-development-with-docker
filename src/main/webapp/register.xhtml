@@ -16,7 +16,6 @@
         </header>
         <div>
             <h:form id="book_register">
-                <h:messages />
                 <table>
                     <tr>
                         <th>Name</th>
@@ -27,7 +26,8 @@
                         <td><h:inputText id="price" value="#{bookRegisterViewModel.book.price}" /></td>
                     </tr>
                 </table>
-                <h:commandButton value="SUBMIT" action="#{bookRegisterViewModel.registerButtonPressed}" />
+                <h:commandButton id="submit" value="SUBMIT" action="#{bookRegisterViewModel.registerButtonPressed}" />
+                <h:messages />
             </h:form>
         </div>
     </body>
