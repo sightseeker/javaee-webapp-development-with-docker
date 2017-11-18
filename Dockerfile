@@ -1,6 +1,8 @@
 FROM gradle:jdk8 as build
-COPY . /project
-RUN gradle build
+RUN mkdir -p /home/gradle/project
+WORKDIR /home/gradle/project
+COPY . /home/gradle/project
+RUN gradle build --stacktrace
 
 FROM sightseeker/wildfly-deployment-demo:11.0.0.Final
 COPY deploy.cli /tmp
