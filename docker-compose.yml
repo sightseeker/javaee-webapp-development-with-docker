@@ -3,7 +3,8 @@ services:
   build:
     image: gradle:jdk8
     volumes:
-      - ".:/project"
+      - .:/project
+      - ~/.gradle:/project/.gradle
     working_dir: /project
     command: ["gradle", "-t", "build", "cargoRedeployRemote"]
     depends_on:
@@ -11,7 +12,7 @@ services:
     networks:
       - javaeedev
   appserver:
-    image: sightseeker/wildfly-deployment-demo:10.1.0.Final
+    image: sightseeker/wildfly-deployment-demo:13.0.0.Final
     ports:
       - 8080:8080
       - 9990:9990
